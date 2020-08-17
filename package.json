@@ -1,0 +1,28 @@
+{
+  "name": "kata-js",
+  "version": "0.1.18",
+  "private": true,
+  "description": "kata js",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node .",
+    "lint": "eslint --ext .js .",
+    "test": "jasmine spec/*.js",
+    "test:coverage": "nyc --exclude spec --reporter=html --reporter=text jasmine spec/*.js && live-server ./coverage",
+    "test:watch": "nodemon  --exec \"jasmine \"spec/*.js\"\""
+  },
+  "keywords": [
+    "kata",
+    "JavaScript"
+  ],
+  "author": "Dídac García",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "jasmine": "^3.6.1",
+    "live-server": "^1.2.1",
+    "nodemon": "^2.0.4",
+    "nyc": "^15.1.0"
+  }
+}

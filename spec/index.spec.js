@@ -36,27 +36,27 @@ describe('Gilded Rose', () => {
 		});
 
 		describe('on "Aged Brie" product', () => {
-			it('should increment his quality by 1 if sellIn date is greather than or equal to 0', () => {
-				const sellInDate = 4;
+			it('should increment his quality by 1 if sellIn date is greather than 0', () => {
+				const sellInDate = 1;
 				const quality = 4;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
 
 				const gildedRose = new Shop(items);
 				const result = gildedRose.updateQuality();
 
-				expect(result[0].sellIn).toEqual(3);
+				expect(result[0].sellIn).toEqual(0);
 				expect(result[0].quality).toEqual(5);
 			});
 
-			it('should increment his quality by 2 if sellIn date is lower than 0', () => {
-				const sellInDate = -2;
+			it('should increment his quality by 2 if sellIn date is lower or equal than 0', () => {
+				const sellInDate = 0;
 				const quality = 5;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
 
 				const gildedRose = new Shop(items);
 				const result = gildedRose.updateQuality();
 
-				expect(result[0].sellIn).toEqual(-3);
+				expect(result[0].sellIn).toEqual(-1);
 				expect(result[0].quality).toEqual(7);
 			});
 		});

@@ -35,8 +35,36 @@ describe('Gilded Rose', () => {
 			expect(result[1].name).toEqual('bar');
 		});
 
+		describe('on all product', () => {
+			it('should not decrement quality of product to a negative value', () => {
+				const gildedRose = new Shop(inventory);
+
+				const updatesOfInventory = 100;
+
+				let result;
+				for (let index = 0; index < updatesOfInventory; index++) {
+					result = gildedRose.updateQuality();
+				}
+
+				expect(result.length).toBeGreaterThan(0);
+				result.forEach(item => {
+					expect(item.quality).not.toBeLessThan(0);
+				});
+			});
+		});
+
+		describe('on standard product', () => {
+			xit('should decrement quality of product by 2 if sellIn date is lower or equal than 0', () => {
+				
+			});
+
+			xit('should not increment quality of product over 50', () => {
+				
+			});
+		});
+
 		describe('on "Aged Brie" product', () => {
-			it('should increment his quality by 1 if sellIn date is greather than 0', () => {
+			it('should increment quality of product by 1 if sellIn date is greather than 0', () => {
 				const sellInDate = 1;
 				const quality = 4;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
@@ -48,7 +76,7 @@ describe('Gilded Rose', () => {
 				expect(result[0].quality).toEqual(5);
 			});
 
-			it('should increment his quality by 2 if sellIn date is lower or equal than 0', () => {
+			it('should increment quality of product by 2 if sellIn date is lower or equal than 0', () => {
 				const sellInDate = 0;
 				const quality = 5;
 				const items = [new Item('Aged Brie', sellInDate, quality)];

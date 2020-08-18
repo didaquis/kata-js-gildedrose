@@ -209,7 +209,7 @@ describe('Gilded Rose', () => {
 		});
 
 		describe('on "Conjured" product', () => {
-			it('should decrement quality of product by 2', () => {
+			xit('should decrement quality of product by 2', () => {
 				const items = [
 					new Item('Conjured Mana Cake', 3, 6),
 					new Item('Conjured Mana Cake', 8, 16),

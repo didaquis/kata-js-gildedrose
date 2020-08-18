@@ -40,7 +40,7 @@ Esto requiere una actualización del sistema:
 
 * Los artículos `conjurados` degradan su `calidad` al doble de velocidad que los normales
 
-Siéntete libre de realizar cualquier cambio al método `updateQuality` y agregar el código que sea necesario, mientras que todo siga funcionando correctamente. Sin embargo, **no alteres el objeto `Item` ni sus propiedades**.
+Siéntete libre de realizar cualquier cambio al método `updateQuality` y agregar el código que sea necesario, mientras que todo siga funcionando correctamente. Sin embargo, **no alteres la clase `Item` ni las propiedades de sus instancias**.
 
 ## Notas finales
 

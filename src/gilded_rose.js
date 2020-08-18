@@ -15,26 +15,34 @@ class Shop {
 		this.CONJURED = 'Conjured Mana Cake';
 	}
 
+	_decreaseByOne (value) {
+		return value - 1;
+	}
+
+	_increaseByOne (value) {
+		return value + 1;
+	}
+
 	updateQuality () {
 		for (let i = 0; i < this.items.length; i++) {
 			if (this.items[i].name != this.AGED_BRIE && this.items[i].name != this.BACKSTAGE_PASSES) {
 				if (this.items[i].quality > 0) {
 					if (this.items[i].name != this.SULFURAS) {
-						this.items[i].quality = this.items[i].quality - 1;
+						this.items[i].quality = this._decreaseByOne(this.items[i].quality);
 					}
 				}
 			} else {
 				if (this.items[i].quality < 50) {
-					this.items[i].quality = this.items[i].quality + 1;
+					this.items[i].quality = this._increaseByOne(this.items[i].quality);
 					if (this.items[i].name == this.BACKSTAGE_PASSES) {
 						if (this.items[i].sellIn < 11) {
 							if (this.items[i].quality < 50) {
-								this.items[i].quality = this.items[i].quality + 1;
+								this.items[i].quality = this._increaseByOne(this.items[i].quality);
 							}
 						}
 						if (this.items[i].sellIn < 6) {
 							if (this.items[i].quality < 50) {
-								this.items[i].quality = this.items[i].quality + 1;
+								this.items[i].quality = this._increaseByOne(this.items[i].quality);
 							}
 						}
 					}
@@ -42,7 +50,7 @@ class Shop {
 			}
 
 			if (this.items[i].name != this.SULFURAS) {
-				this.items[i].sellIn = this.items[i].sellIn - 1;
+				this.items[i].sellIn = this._decreaseByOne(this.items[i].sellIn);
 			}
 
 			if (this.items[i].sellIn < 0) {
@@ -50,7 +58,7 @@ class Shop {
 					if (this.items[i].name != this.BACKSTAGE_PASSES) {
 						if (this.items[i].quality > 0) {
 							if (this.items[i].name != this.SULFURAS) {
-								this.items[i].quality = this.items[i].quality - 1;
+								this.items[i].quality = this._decreaseByOne(this.items[i].quality);
 							}
 						}
 					} else {
@@ -58,7 +66,7 @@ class Shop {
 					}
 				} else {
 					if (this.items[i].quality < 50) {
-						this.items[i].quality = this.items[i].quality + 1;
+						this.items[i].quality = this._increaseByOne(this.items[i].quality);
 					}
 				}
 			}

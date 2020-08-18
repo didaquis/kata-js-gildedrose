@@ -125,5 +125,88 @@ describe('Gilded Rose', () => {
 			});
 		});
 
+		describe('on "Backstage passes" product', () => {
+			it('should increment the quality by 1 if sellIn date it is greather than 10', () => {
+				const items = [
+					new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 12, 48)
+				];
+				const gildedRose = new Shop(items);
+
+				const result = gildedRose.updateQuality();
+
+				expect(result[0].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[0].sellIn).toEqual(14);
+				expect(result[0].quality).toEqual(21);
+
+				expect(result[1].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[1].sellIn).toEqual(11);
+				expect(result[1].quality).toEqual(49);
+			});
+
+			it('should increment the quality by 2 if sellIn date it is between 10 and 6', () => {
+				const items = [
+					new Item('Backstage passes to a TAFKAL80ETC concert', 10, 36),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 8, 40)
+				];
+				const gildedRose = new Shop(items);
+
+				const result = gildedRose.updateQuality();
+
+				expect(result[0].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[0].sellIn).toEqual(9);
+				expect(result[0].quality).toEqual(38);
+
+				expect(result[1].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[1].sellIn).toEqual(7);
+				expect(result[1].quality).toEqual(42);
+			});
+
+			it('should increment the quality by 3 if sellIn date it is 5 or lower', () => {
+				const items = [
+					new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 3, 40),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 1, 41)
+				];
+				const gildedRose = new Shop(items);
+
+				const result = gildedRose.updateQuality();
+
+				expect(result[0].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[0].sellIn).toEqual(4);
+				expect(result[0].quality).toEqual(50);
+
+				expect(result[1].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[1].sellIn).toEqual(2);
+				expect(result[1].quality).toEqual(43);
+
+				expect(result[2].name).toEqual('Backstage passes to a TAFKAL80ETC concert');
+				expect(result[2].sellIn).toEqual(0);
+				expect(result[2].quality).toEqual(44);
+			});
+
+			it('should have quality equal to 0 if sellIn date it is 0 or lower', () => {
+				const items = [
+					new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 10, 49),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 8, 40),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 5, 49),
+					new Item('Backstage passes to a TAFKAL80ETC concert', 3, 40)
+				];
+				const gildedRose = new Shop(items);
+
+				const updatesOfInventory = 100;
+				let result;
+				for (let index = 0; index < updatesOfInventory; index++) {
+					result = gildedRose.updateQuality();
+				}
+
+				expect(result.length).toBeGreaterThan(0);
+				result.forEach(item => {
+					expect(item.quality).toEqual(0);
+				});
+			});
+		});
+
 	});
 });

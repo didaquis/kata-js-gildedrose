@@ -40,7 +40,6 @@ describe('Gilded Rose', () => {
 				const gildedRose = new Shop(inventory);
 
 				const updatesOfInventory = 100;
-
 				let result;
 				for (let index = 0; index < updatesOfInventory; index++) {
 					result = gildedRose.updateQuality();
@@ -64,8 +63,20 @@ describe('Gilded Rose', () => {
 				expect(result[1].quality).toEqual(3);
 			});
 
-			xit('should not increment quality of product over 50', () => {
-				
+			it('should not increment quality of product over 50', () => {
+				const items = [ new Item('foo', 1, 3), new Item('bar', 0, 5) ];
+				const gildedRose = new Shop(items);
+
+				const updatesOfInventory = 100;
+				let result;
+				for (let index = 0; index < updatesOfInventory; index++) {
+					result = gildedRose.updateQuality();
+				}
+
+				expect(result.length).toBeGreaterThan(0);
+				result.forEach(item => {
+					expect(item.quality).not.toBeGreaterThan(50);
+				});
 			});
 		});
 

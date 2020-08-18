@@ -85,10 +85,11 @@ describe('Gilded Rose', () => {
 				const sellInDate = 1;
 				const quality = 4;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
-
 				const gildedRose = new Shop(items);
+
 				const result = gildedRose.updateQuality();
 
+				expect(result[0].name).toEqual('Aged Brie');
 				expect(result[0].sellIn).toEqual(0);
 				expect(result[0].quality).toEqual(5);
 			});
@@ -97,12 +98,30 @@ describe('Gilded Rose', () => {
 				const sellInDate = 0;
 				const quality = 5;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
-
 				const gildedRose = new Shop(items);
+
 				const result = gildedRose.updateQuality();
 
+				expect(result[0].name).toEqual('Aged Brie');
 				expect(result[0].sellIn).toEqual(-1);
 				expect(result[0].quality).toEqual(7);
+			});
+		});
+
+		describe('on "Sulfuras" product', () => {
+			it('should not increment or decrement the quality or sellIn date', () => {
+				const items = [new Item('Sulfuras, Hand of Ragnaros', 0, 80), new Item('Sulfuras, Hand of Ragnaros', -1, 80)];
+				const gildedRose = new Shop(items);
+
+				const result = gildedRose.updateQuality();
+
+				expect(result[0].name).toEqual('Sulfuras, Hand of Ragnaros');
+				expect(result[0].sellIn).toEqual(0);
+				expect(result[0].quality).toEqual(80);
+
+				expect(result[1].name).toEqual('Sulfuras, Hand of Ragnaros');
+				expect(result[1].sellIn).toEqual(-1);
+				expect(result[1].quality).toEqual(80);
 			});
 		});
 

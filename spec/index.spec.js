@@ -81,7 +81,7 @@ describe('Gilded Rose', () => {
 		});
 
 		describe('on "Aged Brie" product', () => {
-			xit('should increment quality of product by 1 if sellIn date is greather than 0', () => {
+			it('should increment quality of product by 1 if sellIn date is greather than 0', () => {
 				const sellInDate = 1;
 				const quality = 4;
 				const items = [new Item('Aged Brie', sellInDate, quality)];
@@ -93,7 +93,7 @@ describe('Gilded Rose', () => {
 				expect(result[0].quality).toEqual(5);
 			});
 
-			xit('should increment quality of product by 2 if sellIn date is lower or equal than 0', () => {
+			it('should increment quality of product by 2 if sellIn date is lower or equal than 0', () => {
 				const sellInDate = 0;
 				const quality = 5;
 				const items = [new Item('Aged Brie', sellInDate, quality)];

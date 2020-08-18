@@ -208,5 +208,30 @@ describe('Gilded Rose', () => {
 			});
 		});
 
+		describe('on "Conjured" product', () => {
+			it('should decrement quality of product by 2', () => {
+				const items = [
+					new Item('Conjured Mana Cake', 3, 6),
+					new Item('Conjured Mana Cake', 8, 16),
+					new Item('Conjured Mana Cake', 10, 20)
+				];
+				const gildedRose = new Shop(items);
+
+				const result = gildedRose.updateQuality();
+
+				expect(result[0].name).toEqual('Conjured Mana Cake');
+				expect(result[0].sellIn).toEqual(2);
+				expect(result[0].quality).toEqual(4);
+
+				expect(result[1].name).toEqual('Conjured Mana Cake');
+				expect(result[1].sellIn).toEqual(7);
+				expect(result[1].quality).toEqual(14);
+
+				expect(result[2].name).toEqual('Conjured Mana Cake');
+				expect(result[2].sellIn).toEqual(9);
+				expect(result[2].quality).toEqual(18);
+			});
+		});
+
 	});
 });

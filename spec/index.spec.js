@@ -109,7 +109,7 @@ describe('Gilded Rose', () => {
 		});
 
 		describe('on "Sulfuras" product', () => {
-			it('should not increment or decrement the quality or sellIn date', () => {
+			it('should not increment or decrement the quality or the sellIn date', () => {
 				const items = [new Item('Sulfuras, Hand of Ragnaros', 0, 80), new Item('Sulfuras, Hand of Ragnaros', -1, 80)];
 				const gildedRose = new Shop(items);
 

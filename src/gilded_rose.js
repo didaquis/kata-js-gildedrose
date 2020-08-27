@@ -13,6 +13,11 @@ class Shop {
 		this.BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert';
 		this.SULFURAS = 'Sulfuras, Hand of Ragnaros';
 		this.CONJURED = 'Conjured Mana Cake';
+		this.QUALITY_INCREASE_LIMIT = 50;
+		this.QUALITY_REDUCTION_LIMIT = 0;
+		this.BACKSTAGE_FIRST_DEADLINE_INCREASE_QUALITY = 10;
+		this.BACKSTAGE_SECOND_DEADLINE_INCREASE_QUALITY = 5;
+		this.DAYS_UNTIL_SALE_DEADLINE = 0;
 	}
 
 	_decreaseSellIn (value) {
@@ -20,14 +25,14 @@ class Shop {
 	}
 	
 	_decreaseQuality (value) {
-		if (value > 0) {
+		if (value > this.QUALITY_REDUCTION_LIMIT) {
 			return value - 1;
 		}
 		return value;
 	}
 
 	_increaseQuality (value) {
-		if (value < 50) {
+		if (value < this.QUALITY_INCREASE_LIMIT) {
 			return value + 1;
 		}
 		return value;
@@ -39,21 +44,21 @@ class Shop {
 
 			switch (item.name) {
 				case this.AGED_BRIE:
-					if (item.sellIn <= 0) {
+					if (item.sellIn <= this.DAYS_UNTIL_SALE_DEADLINE) {
 						item.quality = this._increaseQuality(item.quality);
 					}
 					item.quality = this._increaseQuality(item.quality);
 					break;
 				case this.BACKSTAGE_PASSES:
 					item.quality = this._increaseQuality(item.quality);
-					if (item.sellIn < 11) {
+					if (item.sellIn <= this.BACKSTAGE_FIRST_DEADLINE_INCREASE_QUALITY) {
 						item.quality = this._increaseQuality(item.quality);
 					}
-					if (item.sellIn < 6) {
+					if (item.sellIn <= this.BACKSTAGE_SECOND_DEADLINE_INCREASE_QUALITY) {
 						item.quality = this._increaseQuality(item.quality);
 					}
-					if (item.sellIn < 0) {
-						item.quality = 0;
+					if (item.sellIn <= this.DAYS_UNTIL_SALE_DEADLINE) {
+						item.quality = this.QUALITY_REDUCTION_LIMIT;
 					}
 					break;
 				case this.SULFURAS:
@@ -63,7 +68,7 @@ class Shop {
 					item.quality = this._decreaseQuality(item.quality);
 					break;
 				default:
-					if (item.sellIn <= 0) {
+					if (item.sellIn <= this.DAYS_UNTIL_SALE_DEADLINE) {
 						item.quality = this._decreaseQuality(item.quality);
 					}
 					item.quality = this._decreaseQuality(item.quality);

@@ -15,12 +15,22 @@ class Shop {
 		this.CONJURED = 'Conjured Mana Cake';
 	}
 
-	_decreaseByOne (value) {
+	_decreaseSellIn (value) {
 		return value - 1;
 	}
+	
+	_decreaseQuality (value) {
+		if (value > 0) {
+			return value - 1;
+		}
+		return value;
+	}
 
-	_increaseByOne (value) {
-		return value + 1;
+	_increaseQuality (value) {
+		if (value < 50) {
+			return value + 1;
+		}
+		return value;
 	}
 
 	updateQuality () {
@@ -29,56 +39,39 @@ class Shop {
 
 			switch (item.name) {
 				case this.AGED_BRIE:
+					if (item.sellIn <= 0) {
+						item.quality = this._increaseQuality(item.quality);
+					}
+					item.quality = this._increaseQuality(item.quality);
 					break;
 				case this.BACKSTAGE_PASSES:
+					item.quality = this._increaseQuality(item.quality);
+					if (item.sellIn < 11) {
+						item.quality = this._increaseQuality(item.quality);
+					}
+					if (item.sellIn < 6) {
+						item.quality = this._increaseQuality(item.quality);
+					}
+					if (item.sellIn < 0) {
+						item.quality = 0;
+					}
 					break;
 				case this.SULFURAS:
 					return;
 				case this.CONJURED:
+					item.quality = this._decreaseQuality(item.quality);
+					item.quality = this._decreaseQuality(item.quality);
 					break;
 				default:
+					if (item.sellIn <= 0) {
+						item.quality = this._decreaseQuality(item.quality);
+					}
+					item.quality = this._decreaseQuality(item.quality);
 					break;
 			}
 
-			if (item.name != this.AGED_BRIE && item.name != this.BACKSTAGE_PASSES) {
-				if (item.quality > 0) {
-					item.quality = this._decreaseByOne(item.quality);
-				}
-			} else {
-				if (item.quality < 50) {
-					item.quality = this._increaseByOne(item.quality);
-					if (item.name == this.BACKSTAGE_PASSES) {
-						if (item.sellIn < 11) {
-							if (item.quality < 50) {
-								item.quality = this._increaseByOne(item.quality);
-							}
-						}
-						if (item.sellIn < 6) {
-							if (item.quality < 50) {
-								item.quality = this._increaseByOne(item.quality);
-							}
-						}
-					}
-				}
-			}
+			item.sellIn = this._decreaseSellIn(item.sellIn);
 
-			item.sellIn = this._decreaseByOne(item.sellIn);
-
-			if (item.sellIn < 0) {
-				if (item.name != this.AGED_BRIE) {
-					if (item.name != this.BACKSTAGE_PASSES) {
-						if (item.quality > 0) {
-							item.quality = this._decreaseByOne(item.quality);
-						}
-					} else {
-						item.quality = item.quality - item.quality;
-					}
-				} else {
-					if (item.quality < 50) {
-						item.quality = this._increaseByOne(item.quality);
-					}
-				}
-			}
 		});
 
 		return this.items;
